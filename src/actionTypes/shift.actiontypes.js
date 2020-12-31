@@ -1,0 +1,6 @@
+export const SHIFT_REQUESTING = 'SHIFT_REQUESTING'
+export const SHIFT_SUCCESS = 'SHIFT_SUCCESS'
+export const SHIFT_ERROR = 'SHIFT_ERROR'
+export const SHIFT_ADD = 'SHIFT_ADD'
+export const SHIFT_DEL = 'SHIFT_DEL'
+export const SHIFT_EDIT = 'SHIFT_EDIT'

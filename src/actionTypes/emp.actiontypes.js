@@ -1,0 +1,8 @@
+export const EMP_REQUESTING = 'EMP_REQUESTING'
+export const EMP_SUCCESS = 'EMP_SUCCESS'
+export const EMP_ERROR = 'EMP_ERROR'
+export const EMP_ADD = 'EMP_ADD'
+export const EMP_DEL = 'EMP_DEL'
+export const EMP_EDIT = 'EMP_EDIT'
+export const EMP_INFOR = 'EMP_INFOR'
+export const EMP_INFOR_SUCESS = 'EMP_INFOR_SUCESS'
