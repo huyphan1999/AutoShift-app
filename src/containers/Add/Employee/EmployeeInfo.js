@@ -23,7 +23,7 @@ import {
 } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { Radio, Picker } from "components/ui";
+import { Radio, Picker, DatePicker } from "components/ui";
 
 import moment from "moment";
 import { Avatar } from "react-native-elements";
@@ -41,9 +41,7 @@ class EmployeeInfo extends Component {
     console.log("EmpInfor View");
     console.log(this.props);
     this.state = {
-      date: new Date(),
-      mode: "date",
-      show: false,
+      date: null,
     };
   }
 
@@ -83,27 +81,10 @@ class EmployeeInfo extends Component {
     };
   };
 
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (date) => {
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
       date,
     });
-  };
-
-  show = (mode) => {
-    this.setState({
-      show: true,
-      mode,
-    });
-  };
-
-  datepicker = () => {
-    this.show("date");
-  };
-
-  timepicker = () => {
-    this.show("time");
   };
 
   onSexRadioChange = (value) => {
@@ -126,8 +107,7 @@ class EmployeeInfo extends Component {
   };
 
   render() {
-    const { show, date, mode, data } = this.state;
-    const dates = moment(this.state.date).format("DD-MM-YYYY");
+    const { date } = this.state;
 
     console.log(this.state);
 
@@ -220,20 +200,12 @@ class EmployeeInfo extends Component {
               <Text>Ngày sinh</Text>
             </Left>
             <Right>
-              <TouchableOpacity onPress={this.datepicker}>
-                <Text>{dates}</Text>
-              </TouchableOpacity>
-            </Right>
-
-            {show && (
-              <DateTimePicker
+              <DatePicker
                 value={date}
-                mode={mode}
-                is24Hour={true}
-                display="default"
                 onChange={this.setDate}
+                placeholder="Ngày sinh"
               />
-            )}
+            </Right>
           </ListItem>
 
           <ListItem last>

@@ -27,3 +27,5 @@ function loadingReducer(state = intialState, action) {
       return state;
   }
 }
+
+export default loadingReducer;

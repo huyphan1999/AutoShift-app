@@ -1,0 +1,3 @@
+export const CLOCK_REQUESTING = "CLOCK_REQUESTING";
+export const CLOCK_SUCCESS = "CLOCK_SUCCESS";
+export const CLOCK_ERROR = "CLOCK_ERROR";

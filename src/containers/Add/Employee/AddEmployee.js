@@ -23,7 +23,7 @@ import {
 } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { Radio, Picker, Row } from "components/ui";
+import { Radio, Picker, Row, DatePicker } from "components/ui";
 
 import moment from "moment";
 import { Avatar } from "react-native-elements";
@@ -41,9 +41,7 @@ export default class AddEmployee extends Component {
     console.log("EmpInfor View");
     console.log(this.props);
     this.state = {
-      date: new Date(),
-      mode: "date",
-      show: false,
+      date: null,
     };
   }
 
@@ -68,7 +66,9 @@ export default class AddEmployee extends Component {
     return {
       headerRight: (
         <TouchableOpacity onPress={() => params.onPressHeader()}>
-          <Text style={{ color: "white", fontSize: 18 }}>Save</Text>
+          <Text style={{ color: "white", fontSize: 18, paddingRight: 10 }}>
+            Lưu
+          </Text>
         </TouchableOpacity>
       ),
       headerTitle: () => (
@@ -83,10 +83,8 @@ export default class AddEmployee extends Component {
     };
   };
 
-  setDate = (event, date) => {
-    date = date || this.state.date;
+  setDate = (date) => {
     this.setState({
-      show: Platform.OS === "ios" ? true : false,
       date,
     });
   };
@@ -220,20 +218,12 @@ export default class AddEmployee extends Component {
               <Text>Ngày sinh</Text>
             </Left>
             <Right>
-              <TouchableOpacity onPress={this.datepicker}>
-                <Text>{dates}</Text>
-              </TouchableOpacity>
-            </Right>
-
-            {show && (
-              <DateTimePicker
+              <DatePicker
                 value={date}
-                mode={mode}
-                is24Hour={true}
-                display="default"
                 onChange={this.setDate}
+                placeholder="Ngày sinh"
               />
-            )}
+            </Right>
           </ListItem>
 
           <ListItem last>

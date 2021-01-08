@@ -28,6 +28,7 @@ export default class Picker extends Component {
             title: title,
           });
         }}
+        style={style}
       >
         <Text style={{ color: displayText ? "black" : "#575757" }}>
           {displayText ? displayText : placeholder}

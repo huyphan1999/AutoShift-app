@@ -1,5 +1,5 @@
 import { all } from "redux-saga/effects";
-import { inWatcher } from "./in.saga";
+import { clockWatcher } from "./clock.saga";
 import { watchAppInitial } from "./app.saga";
 import {
   loginWatchcer,
@@ -18,7 +18,7 @@ import { postBranchWatchcer, getBranchWatchcer } from "./branch.saga";
 function* rootSaga() {
   yield all([
     //    In/out saga
-    inWatcher(),
+    clockWatcher(),
 
     //    Auth saga
 

@@ -75,6 +75,7 @@ export default class Employee extends Component {
       subtitle={item.is_root ? "Quản lý" : "Nhân viên"}
       leftAvatar={{
         title: item.name && item.name[0],
+        containerStyle: { backgroundColor: "red" },
       }}
       bottomDivider
       chevron

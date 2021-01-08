@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import in_out from "./in.reducer";
+import clock from "./clock.reducer";
 import app from "./app.reducer";
 import user from "./user.reducer";
 import login from "./login.reducer";
@@ -19,7 +19,7 @@ export default combineReducers({
   signup,
   shift,
   emp,
-  in_out,
+  clock,
   calendar,
   timekeep,
   dept,

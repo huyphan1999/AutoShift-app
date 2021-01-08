@@ -6,12 +6,15 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "clean:android": "cd android && ./gradlew clean && cd ../",
+    "clean:ios": "cd ios && xcodebuild clean && cd ../",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.3",
     "@react-native-community/datetimepicker": "^2.1.0",
+    "@react-native-community/netinfo": "^5.9.10",
     "babel-plugin-module-resolver": "^4.1.0",
     "moment": "^2.24.0",
     "native-base": "2.13.8",

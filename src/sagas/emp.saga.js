@@ -53,17 +53,23 @@ function* getInforFlow(url, id) {
 }
 
 export function* getEmpWatchcer() {
-  try {
-    const action = yield take([EMP.EMP_REQUESTING, EMP.EMP_DEL, EMP.EMP_INFOR]);
+  while (true) {
+    try {
+      const action = yield take([
+        EMP.EMP_REQUESTING,
+        EMP.EMP_DEL,
+        EMP.EMP_INFOR,
+      ]);
 
-    if (action.type == EMP.EMP_INFOR) {
-      yield fork(getInforFlow, URL[action.type], action.id);
-    } else {
-      yield fork(getFlow, URL[action.type], action.id);
+      if (action.type == EMP.EMP_INFOR) {
+        yield fork(getInforFlow, URL[action.type], action.id);
+      } else {
+        yield fork(getFlow, URL[action.type], action.id);
+      }
+      console.log("Watched  GET on EMP");
+    } catch (error) {
+      console.log(error);
     }
-    console.log("Watched  GET on EMP");
-  } catch (error) {
-    console.log(error);
   }
 }
 

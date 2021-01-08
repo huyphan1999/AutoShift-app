@@ -13,7 +13,7 @@ export async function postRequest(url, data) {
 
   const json = await response.json();
 
-  console.log("post Request res", response, json);
+  console.log("post Request res", json);
 
   if (json.error_code == 0) {
     return json;
