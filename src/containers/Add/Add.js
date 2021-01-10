@@ -153,6 +153,13 @@ export default class Add extends Component {
               txtName="Nhân viên"
               route="Employee"
             />
+
+            <Choose
+              iconName1="tools"
+              iconName2="chevron-right"
+              txtName="Cấu hình chấm công"
+              route="Employee"
+            />
             {/* <Choose
               iconName1="calendar-check"
               iconName2="chevron-right"
@@ -192,16 +199,16 @@ export default class Add extends Component {
             >
               ỨNG DỤNG
             </Text>
-            <Choose
+            {/* <Choose
               iconName1="globe"
               iconName2="chevron-right"
               txtName="Ngôn ngữ"
-            />
-            <Choose
+            /> */}
+            {/* <Choose
               iconName1="exclamation-circle"
               iconName2="chevron-right"
               txtName="Giới thiệu Tanca"
-            />
+            /> */}
             <Choose
               iconName1="exclamation-triangle"
               iconName2="chevron-right"
