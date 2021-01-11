@@ -23,6 +23,8 @@ function* clockFlow() {
       yield put(actions.clockSuccess(res.data));
       yield put({ type: USER_OUT });
     }
+
+    yield put({ type: "TIMEKEEP_REQUESTING" });
   } catch (error) {
     console.log(error);
     yield put({ type: CLOCK_ERROR, error });

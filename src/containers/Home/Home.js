@@ -22,6 +22,9 @@ import AddEmployee from "../Add/Employee/AddEmployee";
 // import ObjectDetails from '../Add/Company/ObjectDetails';
 import MultiSelect from "components/ui/MultiSelect";
 import ObjectDetails from "../Add/Company/ObjectDetails";
+import ClockConfig from "../Add/ClockConfig/ClockConfig";
+import WifiClockConfig from "../Add/ClockConfig/WifiConfig/WifiConfig.container";
+import WifiDetail from "../Add/ClockConfig/WifiConfig/WifiDetail";
 
 const Input_OutputTab = createStackNavigator(
   {
@@ -87,6 +90,9 @@ const Add_Tab = createStackNavigator(
     AddEmployee: AddEmployee,
     Company: Company,
     Position: Position,
+    ClockConfig: ClockConfig,
+    WifiClockConfig: WifiClockConfig,
+    WifiDetail: WifiDetail,
     Department: Department,
     Branch: Branch,
     ObjectAdd: ObjectAdd,

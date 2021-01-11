@@ -150,7 +150,7 @@ export default class ObjectAdd extends Component {
               <View style={{ paddingRight: 10 }}>
                 <Icon name="rectangle" size={5} color="red" />
               </View>
-              <Text>Phòng ban:</Text>
+              <Text>Chi nhánh:</Text>
             </Row>
 
             <TouchableOpacity

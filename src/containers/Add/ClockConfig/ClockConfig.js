@@ -30,7 +30,7 @@ class Choose extends Component {
               style={styles.btnIcon}
             />
           </View>
-          <View style={{ paddingLeft: 10, fontFamily: "Open Sans" }}>
+          <View style={{ paddingLeft: 10 }}>
             <Text>{this.props.txtName}</Text>
           </View>
         </View>
@@ -45,7 +45,7 @@ class Choose extends Component {
     );
   }
 }
-export default class Company extends Component {
+export default class ClockConfig extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -53,7 +53,7 @@ export default class Company extends Component {
   static navigationOptions = () => ({
     headerTitle: () => (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: "white", fontSize: 18 }}>Công ty</Text>
+        <Text style={{ color: "white", fontSize: 18 }}>Cấu hình chấm công</Text>
       </View>
     ),
   });
@@ -62,17 +62,10 @@ export default class Company extends Component {
     return (
       <View style={{ backgroundColor: "white" }}>
         <Choose
-          iconName1="code-branch"
+          iconName1="wifi"
           iconName2="chevron-right"
-          txtName="Chi nhánh"
-          route="Branch"
-        />
-        {/* <Choose iconName1="user-tie" iconName2="chevron-right" txtName="Chức vụ"  route="Position" /> */}
-        <Choose
-          iconName1="home"
-          iconName2="chevron-right"
-          txtName="Phòng ban"
-          route="Department"
+          txtName="Sử dụng wifi"
+          route="WifiClockConfig"
         />
       </View>
     );

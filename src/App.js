@@ -18,10 +18,16 @@ import Navigation from "./navigation/index";
 import Test from "containers/TestScreen/index.js";
 
 import getTheme from "app/native-base-theme/components";
-
+import moment from "moment";
 const store = initStore();
 
+var viLocale = require("../translation/moment");
+
 class App extends Component {
+  componentDidMount() {
+    moment.updateLocale("vi", viLocale);
+  }
+
   render() {
     // return <Test />;
 

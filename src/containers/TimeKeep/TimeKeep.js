@@ -64,7 +64,7 @@ function Item({ data }) {
         <Text style={styles.data}>{moment(data.time).format("HH:mm")}</Text>
 
         <Icon
-          name="desktop"
+          name="mobile-alt"
           size={20}
           color="#aaafb3"
           style={{ marginHorizontal: 10 }}
@@ -101,9 +101,7 @@ export default class Timekeep_Activity extends Component {
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => <Item data={item} />}
           renderSectionHeader={({ section: { date } }) => (
-            <Text style={styles.header}>
-              {moment(date).format("[Thứ] dd , DD/MM/YYYY ")}
-            </Text>
+            <Text style={styles.header}>{moment(date).format("LLLL")}</Text>
           )}
           stickySectionHeadersEnabled={true}
         />

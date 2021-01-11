@@ -158,7 +158,7 @@ export default class Add extends Component {
               iconName1="tools"
               iconName2="chevron-right"
               txtName="Cấu hình chấm công"
-              route="Employee"
+              route="ClockConfig"
             />
             {/* <Choose
               iconName1="calendar-check"
