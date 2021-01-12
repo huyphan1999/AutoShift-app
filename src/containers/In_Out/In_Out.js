@@ -1,6 +1,12 @@
 import Icon from "react-native-vector-icons/FontAwesome5";
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, PermissionsAndroid } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  PermissionsAndroid,
+  StyleSheet,
+  Text,
+} from "react-native";
 
 import { connect } from "react-redux";
 
@@ -14,6 +20,9 @@ import { getRequest, postRequest } from "utils/request";
 import { navigate, goBack } from "utils/navigate";
 import { getData } from "selectors";
 import NetInfo from "@react-native-community/netinfo";
+import ShiftClockModal from "./ShiftClockModal";
+import { Row } from "components/ui";
+import { Button } from "native-base";
 
 class Input_OutPut_Activity extends Component {
   static navigationOptions = () => ({
@@ -26,6 +35,7 @@ class Input_OutPut_Activity extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { showClockModal: false, preLoading: false, listShift: [] };
   }
 
   componentDidMount() {
@@ -33,7 +43,35 @@ class Input_OutPut_Activity extends Component {
   }
 
   onClock = () => {
-    this.props.dispatch(actions.clock());
+    const { selectedShift } = this.state;
+
+    console.log("onclock");
+
+    let params = {};
+    if (selectedShift && !this.props.isIn) {
+      params.shift_id = selectedShift.id;
+    }
+
+    console.log("onClock", params);
+    this.props.dispatch(actions.clock(params));
+    this.setState({ preLoading: false, showClockModal: false });
+  };
+
+  onSelectShift = (shift, index) => {
+    const { listShift } = this.state;
+    listShift.map((shift) => (shift.checked = false));
+    listShift[index].checked = true;
+    this.setState({ selectedShift: shift, listShift });
+  };
+
+  preClock = async () => {
+    this.setState({ preLoading: true });
+    const res = await postRequest(`${configs.apiUrl}empclock/pre-clock`);
+    this.setState({
+      showClockModal: true,
+      listShift: res.data,
+      preLoading: false,
+    });
   };
 
   requestLocationPermission = async () => {
@@ -64,10 +102,13 @@ class Input_OutPut_Activity extends Component {
       console.warn(err);
     }
   };
+
   render() {
+    const { showClockModal, listShift, preLoading } = this.state;
+    const { isIn, isLoading, clock } = this.props;
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {this.props.isIn ? (
+        {isIn ? (
           <TouchableOpacity
             style={{ alignItems: "center" }}
             onPress={this.onClock}
@@ -78,17 +119,31 @@ class Input_OutPut_Activity extends Component {
         ) : (
           <TouchableOpacity
             style={{ alignItems: "center" }}
-            onPress={this.onClock}
+            onPress={this.preClock}
           >
             <Icon name="user-lock" size={100} color="#0bd967" />
             <Text style={{ margin: 10 }}>Vào ca</Text>
           </TouchableOpacity>
         )}
-        {this.props.isLoading && (
+        {isLoading || preLoading ? (
           <View style={{ height: 15 }}>
             <DotIndicator color="green" />
           </View>
-        )}
+        ) : null}
+        {isIn && clock.shift ? (
+          <Row>
+            <Text style={{ fontWeight: "bold", fontSize: 22 }}>{`${
+              clock.shift.name
+            } ( ${clock.shift.time} )`}</Text>
+          </Row>
+        ) : null}
+
+        <ShiftClockModal
+          isVisible={showClockModal}
+          listShift={listShift}
+          onSelect={this.onSelectShift}
+          onClockIn={this.onClock}
+        />
       </View>
     );
   }

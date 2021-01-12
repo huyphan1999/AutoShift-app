@@ -13,9 +13,14 @@ import configs from "configs/server.config";
 import { getRequest, postRequest } from "utils/request";
 import { navigate, goBack } from "utils/navigate";
 
-function* clockFlow() {
+function* clockFlow(action) {
+  const { payload } = action;
   try {
-    const res = yield call(postRequest, `${configs.apiUrl}empclock/clock`);
+    const res = yield call(
+      postRequest,
+      `${configs.apiUrl}empclock/clock`,
+      payload
+    );
     if (res.data.status == 1) {
       yield put(actions.clockSuccess(res.data));
       yield put({ type: USER_IN });

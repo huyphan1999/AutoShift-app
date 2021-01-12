@@ -65,6 +65,35 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 5,
   },
+
+  modalContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalContent: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    borderColor: "rgba(0, 0, 0, 0.1)",
+    width: "90%",
+  },
+  modalContentTitle: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 30,
+    borderBottomWidth: 0.4,
+    fontWeight: "bold",
+    width: "100%",
+  },
+  modalContentInner: {
+    width: "100%",
+  },
+  modalButton: {
+    width: "100%",
+  },
 });
 
 export default styles;

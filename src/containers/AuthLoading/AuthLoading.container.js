@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { getUserToken } from "../../selectors/index";
 
 class AuthLoadingContainer extends AuthLoadingScreen {
-  // componentDidUpdate() {
-  //   this.props.navigation.navigate(this.props.token ? 'Home' : 'Auth');
-  // }
+  componentDidUpdate() {
+    this.props.navigation.navigate(this.props.token ? "Home" : "Auth");
+  }
 }
 
 const mapStateToProps = (state) => ({
