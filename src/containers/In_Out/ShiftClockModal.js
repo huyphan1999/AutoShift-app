@@ -46,13 +46,15 @@ export default class ShiftClockModal extends Component {
             <H1>Ca của bạn</H1>
           </View>
           {this.renderListShift()}
-          <TouchableOpacity
-            onPress={this.props.onClockIn}
-            style={styles.clockButton}
-            activeOpacity={0.8}
-          >
-            <Text style={{ fontSize: 20, color: "white" }}>Vào ca</Text>
-          </TouchableOpacity>
+          {this.props.listShift.length ? (
+            <TouchableOpacity
+              onPress={this.props.onClockIn}
+              style={styles.clockButton}
+              activeOpacity={0.8}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>Vào ca</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </Modal>
     );
