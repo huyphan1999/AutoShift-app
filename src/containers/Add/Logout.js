@@ -19,7 +19,7 @@ class Logout extends Component {
   };
 
   ProcessLogout = () => {
-    this.props.dispatch({ type: actions.LOGOUT });
+    this.props.dispatch({ type: types.LOGOUT });
   };
 
   render() {
