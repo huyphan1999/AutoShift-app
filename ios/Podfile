@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'tancaIntern' do
-  # Pods for tancaIntern
+target 'AutoShift' do
+  # Pods for AutoShift
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -34,15 +34,7 @@ target 'tancaIntern' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
-  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
-
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
-
-  pod 'RNScreens', :path => '../node_modules/react-native-screens'
-
-  target 'tancaInternTests' do
+  target 'AutoShiftTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -50,10 +42,10 @@ target 'tancaIntern' do
   use_native_modules!
 end
 
-target 'tancaIntern-tvOS' do
-  # Pods for tancaIntern-tvOS
+target 'AutoShift-tvOS' do
+  # Pods for AutoShift-tvOS
 
-  target 'tancaIntern-tvOSTests' do
+  target 'AutoShift-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

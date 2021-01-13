@@ -6,6 +6,7 @@ import {
   logoutWatcher,
   signupWatcher,
   onloginSucessWatchcer,
+  fetchUsertWatcher,
 } from "./user.saga";
 import { timekeepWatcher } from "./timekeep.saga";
 import { calendarWatcher } from "./calendar.saga";
@@ -27,6 +28,7 @@ function* rootSaga() {
     watchAppInitial(),
     logoutWatcher(),
     onloginSucessWatchcer(),
+    fetchUsertWatcher(),
 
     //   Attendance saga
 

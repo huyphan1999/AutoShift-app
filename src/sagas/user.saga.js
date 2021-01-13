@@ -41,6 +41,16 @@ function* onLoginSucess() {
   }
 }
 
+function* fetchUser() {
+  try {
+    const res = yield call(getRequest, `${configs.apiUrl}user`);
+
+    yield put(setUSER(res.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* loginFlow(name, phone_number) {
   try {
     const res = yield call(postRequest, `${configs.apiUrl}auth/login`, {
@@ -89,9 +99,11 @@ export function* signupWatcher() {
 }
 
 export function* loginWatchcer() {
-  const { name, phone_number } = yield take(LOGIN_REQUESTING);
-  console.log({ name, phone_number });
-  yield call(loginFlow, name, phone_number);
+  while (true) {
+    const { name, phone_number } = yield take(LOGIN_REQUESTING);
+    console.log({ name, phone_number });
+    yield call(loginFlow, name, phone_number);
+  }
 }
 
 export function* onloginSucessWatchcer() {
@@ -101,4 +113,8 @@ export function* onloginSucessWatchcer() {
 
 export function* logoutWatcher() {
   yield takeLatest(LOGOUT, logout);
+}
+
+export function* fetchUsertWatcher() {
+  yield takeLatest(types.FETCH_USER, fetchUser);
 }

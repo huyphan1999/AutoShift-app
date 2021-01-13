@@ -112,7 +112,7 @@ class EmployeeInfo extends Component {
   render() {
     const { birth } = this.state;
 
-    console.log(this.state);
+    console.log(this.state, this.props);
 
     return (
       <Container>
