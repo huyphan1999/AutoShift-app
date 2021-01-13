@@ -85,7 +85,7 @@ export default class AddEmployee extends Component {
 
   setDate = (date) => {
     this.setState({
-      date,
+      birth: date,
     });
   };
 
@@ -124,7 +124,7 @@ export default class AddEmployee extends Component {
   };
 
   render() {
-    const { show, date, mode, data } = this.state;
+    const { birth } = this.state;
     const dates = moment(this.state.date).format("DD-MM-YYYY");
 
     console.log(this.state);
@@ -245,6 +245,14 @@ export default class AddEmployee extends Component {
           <Separator group bordered>
             <Text>Công ty</Text>
           </Separator>
+          <ListItem>
+            <Left>
+              <Text>Tên công ty</Text>
+            </Left>
+            <Right>
+              <Text>{this.state.shop && this.state.shop.name}</Text>
+            </Right>
+          </ListItem>
           <ListItem>
             <Left>
               <Text>Phòng ban</Text>

@@ -65,8 +65,11 @@ class EmployeeInfo extends Component {
     console.log(`Params: ${params}`);
     return {
       headerRight: (
-        <TouchableOpacity onPress={() => params.onPressHeader()}>
-          <Text style={{ color: "white", fontSize: 18 }}>Save</Text>
+        <TouchableOpacity
+          style={{ paddingRight: 15 }}
+          onPress={() => params.onPressHeader()}
+        >
+          <Text style={{ color: "white", fontSize: 18 }}>Lưu</Text>
         </TouchableOpacity>
       ),
       headerTitle: () => (
@@ -83,7 +86,7 @@ class EmployeeInfo extends Component {
 
   setDate = (date) => {
     this.setState({
-      date,
+      birth: date,
     });
   };
 
@@ -107,7 +110,7 @@ class EmployeeInfo extends Component {
   };
 
   render() {
-    const { date } = this.state;
+    const { birth } = this.state;
 
     console.log(this.state);
 
@@ -136,12 +139,7 @@ class EmployeeInfo extends Component {
               <Text>Mã NV</Text>
             </Left>
             <Right>
-              <Input
-                onChangeText={(text) => this.handleTextInput(text, "id")}
-                style={styles.inputTxt}
-                placeholder="Mã NV"
-                value={this.state.id}
-              />
+              <Text numberOfLines={1}>{this.state.id}</Text>
             </Right>
           </ListItem>
 
@@ -201,7 +199,7 @@ class EmployeeInfo extends Component {
             </Left>
             <Right>
               <DatePicker
-                value={date}
+                value={birth}
                 onChange={this.setDate}
                 placeholder="Ngày sinh"
               />
@@ -213,20 +211,22 @@ class EmployeeInfo extends Component {
               <Text>Số điện thoại</Text>
             </Left>
             <Right>
-              <Input
-                onChangeText={(text) =>
-                  this.handleTextInput(text, "phone_number")
-                }
-                style={styles.inputTxt}
-                placeholder="SĐT"
-                value={this.state.phone_number}
-              />
+              <Text>{this.state.phone_number}</Text>
             </Right>
           </ListItem>
 
           <Separator group bordered>
             <Text>Công ty</Text>
           </Separator>
+
+          <ListItem>
+            <Left>
+              <Text>Tên công ty</Text>
+            </Left>
+            <Right>
+              <Text>{this.state.shop && this.state.shop.name}</Text>
+            </Right>
+          </ListItem>
           <ListItem>
             <Left>
               <Text>Phòng ban</Text>

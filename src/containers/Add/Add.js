@@ -33,7 +33,7 @@ class Choose extends Component {
               style={styles.btnIcon}
             />
           </View>
-          <View style={{ paddingLeft: 10, fontFamily: "Open Sans" }}>
+          <View style={{ paddingLeft: 10 }}>
             <Text>{this.props.txtName}</Text>
           </View>
         </View>

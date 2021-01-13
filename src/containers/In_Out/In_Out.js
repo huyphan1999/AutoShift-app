@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   StyleSheet,
+  Alert,
   Text,
 } from "react-native";
 
@@ -39,15 +40,17 @@ class Input_OutPut_Activity extends Component {
   }
 
   componentDidMount() {
-    this.requestLocationPermission();
+    this.getNetInfor();
   }
 
   onClock = () => {
-    const { selectedShift } = this.state;
+    const { selectedShift, netInfor } = this.state;
 
     console.log("onclock");
 
-    let params = {};
+    let params = {
+      netInfor: netInfor,
+    };
     if (selectedShift && !this.props.isIn) {
       params.shift_id = selectedShift.id;
     }
@@ -64,13 +67,38 @@ class Input_OutPut_Activity extends Component {
     this.setState({ selectedShift: shift, listShift });
   };
 
-  preClock = async () => {
+  preClock = async (e, byPass = false) => {
     this.setState({ preLoading: true });
+    const { netInfor } = this.state;
     const res = await postRequest(`${configs.apiUrl}empclock/pre-clock`);
-    this.setState({
-      showClockModal: true,
-      listShift: res.data,
-      preLoading: false,
+    const { listShift, wifiClock } = res.data;
+
+    console.log("preClock", byPass, wifiClock, netInfor);
+    if (
+      (!byPass && !wifiClock) ||
+      (wifiClock && wifiClock.bssid && wifiClock.bssid !== netInfor.bssid)
+    ) {
+      Alert.alert(
+        "Thông báo",
+        "Kết nối sử dụng không hợp lệ bạn vẫn muốn tiếp tục vào ca ?",
+        [
+          { text: "Hủy", onPress: () => this.setState({ preLoading: false }) },
+          { text: "Đồng ý", onPress: () => this.preClock(e, true) },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      this.setState({
+        showClockModal: true,
+        listShift: res.data,
+      });
+    }
+  };
+
+  getNetInfor = () => {
+    NetInfo.fetch().then((state) => {
+      console.log("Connection type", state);
+      this.setState({ netInfor: state.details });
     });
   };
 
@@ -101,6 +129,10 @@ class Input_OutPut_Activity extends Component {
     } catch (err) {
       console.warn(err);
     }
+  };
+
+  closeModal = () => {
+    this.setState({ showClockModal: false, preLoading: false });
   };
 
   render() {
@@ -143,6 +175,7 @@ class Input_OutPut_Activity extends Component {
           listShift={listShift}
           onSelect={this.onSelectShift}
           onClockIn={this.onClock}
+          closeModal={this.closeModal}
         />
       </View>
     );

@@ -24,6 +24,7 @@ function* logout() {
   // dispatches the User_UNSET action
   console.log("LOG OUT");
   yield put(unsetUSER());
+  unsetToken();
   navigate("Login");
 }
 

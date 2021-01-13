@@ -51,16 +51,20 @@ class EmpContainer extends Employee {
     goBack();
   };
 
-  onDelEmp = (id) => {
-    this.props.dispatch(getRequest(EMP.EMP_DEL, id));
-    console.log("DEL CALLBACK");
-    console.log(id);
+  onDelEmp = async (id) => {
+    await postRequest(`${configs.apiUrl}user/delete`, id);
+    this.getListUser();
+
+    goBack();
   };
 
-  onSaveEmp = async (newdata) => {
+  onSaveEmp = async (data) => {
     console.log("EDIT CALLBACK");
-    console.log(newdata);
-    await postRequest(`${configs.apiUrl}user/update`, newdata);
+    let params = {};
+    let { birth, ...rest } = data;
+    birth = moment(birth).format("YYYY-MM-DD");
+    params = { ...rest, birth };
+    await postRequest(`${configs.apiUrl}user/update`, params);
     this.getListUser();
   };
 

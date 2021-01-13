@@ -6,6 +6,7 @@ import * as types from "actionTypes";
 import configs from "configs/server.config";
 import { getRequest, postRequest } from "utils/request";
 import { navigate, goBack } from "utils/navigate";
+import moment from "moment";
 
 class AddContainer extends Add {
   constructor(props) {
@@ -18,7 +19,10 @@ class AddContainer extends Add {
   }
 
   onSave = async (data) => {
-    const params = { ...data };
+    let params = {};
+    let { birth, ...rest } = data;
+    birth = moment(birth).format("YYYY-MM-DD");
+    params = { ...rest, birth };
     await postRequest(`${configs.apiUrl}user/update`, params);
   };
 }

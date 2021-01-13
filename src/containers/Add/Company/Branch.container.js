@@ -20,8 +20,6 @@ class BranchContainer extends ObjectList {
       onPressHeader: this.onPressHeader,
       title: "Chi nhánh",
     });
-
-    
   };
 
   getListBranch = () => {
@@ -59,12 +57,17 @@ class BranchContainer extends ObjectList {
     goBack();
   };
 
-  onDelBranch = (id) => {
+  onDelBranch = async (id) => {
     // this.props.dispatch(getRequest(COMPANY.BRANCH_DEL, id));
     console.log("DEL CALLBACK");
     console.log(id);
-  };
 
+    await postRequest(`${configs.apiUrl}branch/delete`, id);
+
+    this.getListBranch();
+
+    goBack();
+  };
 
   onSaveBranch = async (newdata) => {
     // this.props.dispatch(postRequest(COMPANY.BRANCH_EDIT, newdata));

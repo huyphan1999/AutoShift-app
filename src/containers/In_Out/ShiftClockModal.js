@@ -37,10 +37,20 @@ export default class ShiftClockModal extends Component {
     );
   };
 
+  closeModal = () => {
+    this.props.closeModal();
+  };
+
   render() {
     console.log(this.props);
     return (
-      <Modal style={modalStyle.modalContainer} isVisible={this.props.isVisible}>
+      <Modal
+        backdropOpacity={0.2}
+        onBackButtonPress={this.closeModal}
+        onBackdropPress={this.closeModal}
+        style={modalStyle.modalContainer}
+        isVisible={this.props.isVisible}
+      >
         <View style={modalStyle.modalContent}>
           <View style={modalStyle.modalContentTitle}>
             <H1>Ca của bạn</H1>
