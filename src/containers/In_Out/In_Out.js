@@ -90,7 +90,7 @@ class Input_OutPut_Activity extends Component {
     } else {
       this.setState({
         showClockModal: true,
-        listShift: res.data,
+        listShift: listShift,
       });
     }
   };
