@@ -1,16 +1,25 @@
-import { USER_SET, USER_UNSET } from '../actionTypes/user.actiontypes'
+import {
+  FETCH_USER,
+  USER_SET,
+  USER_UNSET,
+} from "../actionTypes/user.actiontypes";
 
-
-export function setUSER (data) {
-  console.log(`Set user:${data}`)
+export function setUSER(data) {
+  console.log(`Set user:${data}`);
   return {
     type: USER_SET,
-    data
-  }
+    data,
+  };
 }
 
-export function unsetUSER () {
+export function unsetUSER() {
   return {
     type: USER_UNSET,
-  }
+  };
+}
+
+export function fetchUser() {
+  return {
+    type: FETCH_USER,
+  };
 }
