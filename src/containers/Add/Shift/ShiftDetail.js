@@ -67,7 +67,7 @@ class ShiftDetail extends Component {
         onPress={() => getParamsHeader(navigation).onPressHeader()}
       >
         <Text style={{ color: "white", fontSize: 18 }}>
-          {getParamsHeader(navigation).onDel ? "Lưu" : "Tạo"}
+          {getParamsHeader(navigation).onDel ? "" : "Tạo"}
         </Text>
       </TouchableOpacity>
     ),

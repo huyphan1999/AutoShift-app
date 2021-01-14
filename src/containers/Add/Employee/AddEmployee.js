@@ -219,7 +219,7 @@ export default class AddEmployee extends Component {
             </Left>
             <Right>
               <DatePicker
-                value={date}
+                value={birth}
                 onChange={this.setDate}
                 placeholder="Ngày sinh"
               />

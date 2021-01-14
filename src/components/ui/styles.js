@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 9999,
   },
 
   modalContent: {
@@ -78,6 +79,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     borderColor: "rgba(0, 0, 0, 0.1)",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
     width: "90%",
   },
   modalContentTitle: {

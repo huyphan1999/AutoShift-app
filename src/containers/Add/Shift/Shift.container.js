@@ -49,6 +49,8 @@ class ShiftContainer extends Shift {
       ...els,
     };
     await postRequest(`${configs.apiUrl}shift/register`, params);
+    goBack();
+    this.props.dispatch({ type: types.CALENDAR_REQUESTING });
     this.getListShift();
   };
 

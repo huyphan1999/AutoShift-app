@@ -67,32 +67,49 @@ class Input_OutPut_Activity extends Component {
     this.setState({ selectedShift: shift, listShift });
   };
 
-  preClock = async (e, byPass = false) => {
+  validateWifiClock = (wifiClock) => {
+    const { netInfor } = this.state;
+
+    let bool = false;
+    let deviceWifiId = netInfor.bssid;
+    Array.isArray(wifiClock) &&
+      wifiClock.map((wifi) => {
+        if (wifi.bssid === deviceWifiId) {
+          bool = true;
+        }
+      });
+    return bool;
+  };
+
+  preClock = async () => {
     this.setState({ preLoading: true });
     const { netInfor } = this.state;
     const res = await postRequest(`${configs.apiUrl}empclock/pre-clock`);
     const { listShift, wifiClock } = res.data;
 
-    console.log("preClock", byPass, wifiClock, netInfor);
-    if (
-      (!byPass && !wifiClock) ||
-      (wifiClock && wifiClock.bssid && wifiClock.bssid !== netInfor.bssid)
-    ) {
+    console.log("preClock", wifiClock, netInfor);
+    if (!this.validateWifiClock(wifiClock)) {
+      const validSsid = this.renderValidSsid(wifiClock);
       Alert.alert(
         "Thông báo",
-        "Kết nối sử dụng không hợp lệ bạn vẫn muốn tiếp tục vào ca ?",
+        "Kết nối sử dụng không hợp lệ bạn vẫn muốn tiếp tục vào ca ? " +
+          validSsid,
         [
           { text: "Hủy", onPress: () => this.setState({ preLoading: false }) },
-          { text: "Đồng ý", onPress: () => this.preClock(e, true) },
+          { text: "Đồng ý", onPress: () => this.onClockConfirm(listShift) },
         ],
         { cancelable: false }
       );
     } else {
-      this.setState({
-        showClockModal: true,
-        listShift: listShift,
-      });
+      this.onClockConfirm(listShift);
     }
+  };
+
+  onClockConfirm = (listShift) => {
+    this.setState({
+      showClockModal: true,
+      listShift: listShift,
+    });
   };
 
   getNetInfor = () => {
@@ -100,6 +117,15 @@ class Input_OutPut_Activity extends Component {
       console.log("Connection type", state);
       this.setState({ netInfor: state.details });
     });
+  };
+
+  renderValidSsid = (wifiClock) => {
+    let validSsid = "";
+    wifiClock.map((wifi) => (validSsid += wifi.ssid + ","));
+    if (validSsid) {
+      validSsid = "Các kết nối hợp lệ " + validSsid;
+    }
+    return validSsid.slice(0, -1);
   };
 
   requestLocationPermission = async () => {
