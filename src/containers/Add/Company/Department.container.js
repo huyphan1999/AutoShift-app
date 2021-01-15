@@ -59,7 +59,7 @@ class DepartmentContainer extends Object {
   };
 
   onSaveDepartment = async (newdata) => {
-    await postRequest(`${configs.apiUrl}dep/update`, data);
+    await postRequest(`${configs.apiUrl}dep/update`, newdata);
     this.getListDept();
     goBack();
   };
