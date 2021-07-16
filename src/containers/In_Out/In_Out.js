@@ -4,8 +4,10 @@ import {
   View,
   TouchableOpacity,
   PermissionsAndroid,
+  ToastAndroid,
   StyleSheet,
   Alert,
+  Platform,
   Text,
 } from "react-native";
 
@@ -13,7 +15,7 @@ import { connect } from "react-redux";
 
 import { IN_REQUESTING } from "../../actionTypes/clock.actiontypes";
 import { DotIndicator, MaterialIndicator } from "react-native-indicators";
-
+import Geolocation from "react-native-geolocation-service";
 import * as actions from "actions";
 import * as types from "actionTypes";
 import configs from "configs/server.config";
@@ -41,6 +43,7 @@ class Input_OutPut_Activity extends Component {
 
   componentDidMount() {
     this.getNetInfor();
+    this.getLocation();
   }
 
   onClock = () => {
@@ -83,8 +86,14 @@ class Input_OutPut_Activity extends Component {
 
   preClock = async () => {
     this.setState({ preLoading: true });
-    const { netInfor } = this.state;
-    const res = await postRequest(`${configs.apiUrl}empclock/pre-clock`);
+    const { netInfor, location } = this.state;
+    const timekeep = {
+      wifi: netInfor,
+      location,
+    };
+    const res = await postRequest(`${configs.apiUrl}empclock/pre-clock`, {
+      timekeep,
+    });
     const { listShift, wifiClock } = res.data;
 
     console.log("preClock", wifiClock, netInfor);
@@ -117,6 +126,66 @@ class Input_OutPut_Activity extends Component {
       console.log("Connection type", state);
       this.setState({ netInfor: state.details });
     });
+  };
+
+  getLocation = () => {
+    if (hasLocationPermission) {
+      Geolocation.getCurrentPosition(
+        (location) => {
+          console.log(location);
+          this.setState({ location });
+          ToastAndroid.show(
+            `Location ${location?.toString()} `,
+            ToastAndroid.LONG
+          );
+        },
+        (error) => {
+          console.log(error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      );
+    }
+  };
+
+  hasLocationPermission = async () => {
+    if (Platform.OS === "ios") {
+      const hasPermission = await hasPermissionIOS();
+      return hasPermission;
+    }
+
+    if (Platform.OS === "android" && Platform.Version < 23) {
+      return true;
+    }
+
+    const hasPermission = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
+
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
+
+    if (status === PermissionsAndroid.RESULTS.GRANTED) {
+      return true;
+    }
+
+    if (status === PermissionsAndroid.RESULTS.DENIED) {
+      ToastAndroid.show(
+        "Location permission denied by user.",
+        ToastAndroid.LONG
+      );
+    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+      ToastAndroid.show(
+        "Location permission revoked by user.",
+        ToastAndroid.LONG
+      );
+    }
+
+    return false;
   };
 
   renderValidSsid = (wifiClock) => {
