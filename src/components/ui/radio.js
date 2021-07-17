@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native";
 
 export default class RadioText extends Component {
   render() {
-    const { title, onPress, checked, value } = this.props;
+    const { title, onPress, checked, value, disabled } = this.props;
 
     console.log(this.props);
 
@@ -16,6 +16,7 @@ export default class RadioText extends Component {
             style={{ marginRight: 5 }}
             selected={checked == value}
             color="blue"
+            disabled={disabled || false}
           />
           <Text>{title}</Text>
         </View>

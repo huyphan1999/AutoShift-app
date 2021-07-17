@@ -95,6 +95,10 @@ class EmployeeInfo extends Component {
     this.setState({ sex: value });
   };
 
+  onRoleRadioChange = (value) => {
+    this.setState({ is_admin: value });
+  };
+
   onValueChange = (value) => {
     this.setState({ selected: value });
   };
@@ -244,6 +248,29 @@ class EmployeeInfo extends Component {
           </ListItem>
           <ListItem last>
             <Left>
+              <Text>Chức vụ</Text>
+            </Left>
+            <Right>
+              <View style={styles.txtContent}>
+                <Radio
+                  title="Quản lý"
+                  value="1"
+                  checked={this.state.is_admin}
+                  onPress={this.onRoleRadioChange}
+                  disabled
+                />
+                <Radio
+                  title="Nhân viên"
+                  value="0"
+                  disabled
+                  checked={this.state.is_admin}
+                  onPress={this.onRoleRadioChange}
+                />
+              </View>
+            </Right>
+          </ListItem>
+          {/* <ListItem last>
+            <Left>
               <Text>Chi nhánh</Text>
             </Left>
             <Right>
@@ -256,7 +283,7 @@ class EmployeeInfo extends Component {
                 route="branch/list"
               />
             </Right>
-          </ListItem>
+          </ListItem> */}
         </Content>
       </Container>
     );

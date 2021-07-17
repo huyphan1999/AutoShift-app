@@ -240,7 +240,7 @@ class ShiftDetail extends Component {
               >
                 PHÂN CA
               </Text>
-              <View
+              {/* <View
                 style={{
                   padding: 12,
                   fontSize: 16,
@@ -259,7 +259,7 @@ class ShiftDetail extends Component {
                   multiple={true}
                   route="branch/list"
                 />
-              </View>
+              </View> */}
               <Divider
                 style={{
                   backgroundColor: "black",
