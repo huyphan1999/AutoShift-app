@@ -128,8 +128,9 @@ class Input_OutPut_Activity extends Component {
     });
   };
 
-  getLocation = () => {
-    if (hasLocationPermission) {
+  getLocation = async () => {
+    const hasPermission = await this.hasLocationPermission();
+    if (hasPermission) {
       Geolocation.getCurrentPosition(
         (location) => {
           console.log(location);
@@ -161,9 +162,13 @@ class Input_OutPut_Activity extends Component {
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
 
+    console.log("hasPermission", hasPermission);
+
     if (hasPermission) {
       return true;
     }
+
+    console.log("hasPermission request", hasPermission);
 
     const status = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
