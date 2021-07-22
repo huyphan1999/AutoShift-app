@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { CheckBox, Divider } from "react-native-elements";
 import { connect } from "react-redux";
-import { getParams, getParamsHeader } from "../../../utils/index";
+import {
+  getParams,
+  getParamsHeader,
+  unsignedString,
+} from "../../../utils/index";
 
 import {
   Text,
@@ -20,7 +24,7 @@ import {
   Content,
 } from "native-base";
 
-import { Picker, TimePicker } from "components/ui";
+import { Picker, TimePicker, Radio } from "components/ui";
 import * as actions from "actions";
 import * as types from "actionTypes";
 import configs from "configs/server.config";
@@ -122,7 +126,13 @@ class ShiftDetail extends Component {
   };
 
   handleNameInput = (value) => {
-    this.setState({ name: value, key: value.toUpperCase() });
+    const unsignedValue = unsignedString(value);
+    this.setState({ name: value, key: unsignedValue.toUpperCase() });
+  };
+
+  onTypeRadioChange = (value) => {
+    console.log("onSexRadioChange", value);
+    this.setState({ is_OT: value });
   };
 
   render() {
@@ -286,6 +296,52 @@ class ShiftDetail extends Component {
                   placeholder="Chọn phòng ban"
                   multiple={true}
                   route="dep/list"
+                />
+              </View>
+
+              <View
+                style={{
+                  padding: 12,
+                  fontSize: 16,
+                  flexDirection: "row",
+                }}
+              >
+                <Text style={{ width: 120 }}> Ngày công :</Text>
+                <TextInput
+                  style={{
+                    padding: 0,
+                    fontSize: 16,
+                    margin: 0,
+                    marginLeft: -5,
+                    maxHeight: 30,
+                  }}
+                  onChangeText={(text) =>
+                    this.handleTextInput(text, "work_day")
+                  }
+                  value={this.state.workd_day}
+                  placeholder="Số ngày công"
+                />
+              </View>
+
+              <View
+                style={{
+                  padding: 12,
+                  fontSize: 16,
+                  flexDirection: "row",
+                }}
+              >
+                <Text style={{ width: 120 }}> Loại ca :</Text>
+                <Radio
+                  title="Ca tăng ca"
+                  value="1"
+                  checked={this.state.is_OT}
+                  onPress={this.onTypeRadioChange}
+                />
+                <Radio
+                  title="Ca hành chính"
+                  value="0"
+                  checked={this.state.is_OT}
+                  onPress={this.onTypeRadioChange}
                 />
               </View>
 
